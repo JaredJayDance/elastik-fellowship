@@ -14,7 +14,25 @@ const schema = a.schema({
     }).authorization(allow => [allow.owner()]),
 });
 
+//Uncomment when ready. Should be correct structure.
+const jaySchema = a.schema({
+  StudentList: a
+    .model({
+      email: a.string(),
+      firstName: a.string(),
+      lastName: a.string(),
+      DOB: a.date(),
+      schoolName: a.string(),
+      coordinatorName: a.string(),
+      teacherName: a.string(),
+
+    }).authorization(allow => [allow.owner()]),
+});
+
 export type Schema = ClientSchema<typeof schema>;
+
+//Ensure this is imported correctly
+export type jaySchema = ClientSchema<typeof jaySchema>;
 
 export const data = defineData({
   schema,
