@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import type { Schema } from "../amplify/data/resource"; //import type { Schema, jaySchema } from "../amplify/data/resource";
+import type { Schema, jaySchema } from "../amplify/data/resource"; //import type { Schema, jaySchema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
-//const jayClient = generateClient<jaySchema>();
+const jayClient = generateClient<jaySchema>();
 
 function App() {
   const { user, signOut } = useAuthenticator();
@@ -25,7 +25,6 @@ function App() {
     client.models.Todo.delete({ id })
   }
 
-  /** 
   const [students, showStudents] = useState<Array<jaySchema["StudentList"]["type"]>>([]);
 
   useEffect(() => {
@@ -59,7 +58,7 @@ function App() {
   function deleteStudent(id: string) {
     jayClient.models.StudentList.delete({ id })
   }
-    */
+    
 
   return (
     <main>
@@ -73,6 +72,14 @@ function App() {
         ))}
       </ul>
       <button onClick={signOut}>Sign out</button>
+      <button onClick={createStudent}>+ newStudent</button>
+      <ul>
+        {students.map((student) => (
+          <li 
+          onClick={() => deleteStudent(student.id)}
+          key={student.id}>{student.firstName}</li>
+        ))}
+      </ul>
     </main>
   );
 }

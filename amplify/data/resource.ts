@@ -21,7 +21,7 @@ const jaySchema = a.schema({
       email: a.string(),
       firstName: a.string(),
       lastName: a.string(),
-      DOB: a.date(),
+      DOB: a.string(),
       schoolName: a.string(),
       coordinatorName: a.string(),
       teacherName: a.string(),
