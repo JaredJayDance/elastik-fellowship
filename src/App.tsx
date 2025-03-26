@@ -51,7 +51,7 @@ function App() {
       DOB: window.prompt("Students DOB"),
       schoolName: window.prompt("School"),
       coordinatorName: window.prompt("Coordinator"),
-      teacherName: window.prompt("Teacher")
+      teacherName: window.prompt("Teacher"),
     });
   };
 
