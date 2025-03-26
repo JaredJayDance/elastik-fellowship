@@ -3,11 +3,13 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { Schema, jaySchema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
-const client = generateClient<Schema>();
+//const client = generateClient<Schema>();
 const jayClient = generateClient<jaySchema>();
 
 function App() {
   const { user, signOut } = useAuthenticator();
+
+  /**
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
@@ -24,6 +26,7 @@ function App() {
     client.models.Todo.delete({ id })
   }
 
+  */
 
   const [students, showStudents] = useState<Array<jaySchema["StudentList"]["type"]>>([]);
 
@@ -51,14 +54,7 @@ function App() {
   return (
     <main>
       <h1>{user?.signInDetails?.loginId}'s ToDos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li 
-          onClick={() => deleteTodo(todo.id)}
-          key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
+      
       <button onClick={signOut}>Sign out</button>
       <button onClick={createStudent}>+ newStudent</button>
       <ul>
@@ -73,3 +69,15 @@ function App() {
 }
 
 export default App;
+
+/**
+<button onClick={createTodo}>+ new</button>
+      <ul>
+        {todos.map((todo) => (
+          <li 
+          onClick={() => deleteTodo(todo.id)}
+          key={todo.id}>{todo.content}</li>
+        ))}
+      </ul>
+
+      */

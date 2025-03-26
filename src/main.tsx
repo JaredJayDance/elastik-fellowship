@@ -15,7 +15,7 @@ Amplify.configure({
   ...amplifyConfig,
   API: {
     ...amplifyConfig.API,
-    REST: outputs.custom.API, //Might fix itself once backend changes are pushed
+    REST: outputs.custom.API,
   },
 });
 
