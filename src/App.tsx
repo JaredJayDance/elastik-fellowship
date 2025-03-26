@@ -1,40 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import type { Schema } from "../amplify/data/resource"; //import type { Schema, jaySchema } from "../amplify/data/resource";
+import type { Schema } from "../amplify/data/resource"; 
 import { generateClient } from "aws-amplify/data";
 
-//const client = generateClient<Schema>();
 const jayClient = generateClient<Schema>();
 
 function App() {
   const { user, signOut } = useAuthenticator();
-
-  /** 
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  useEffect(() => {
-
-    console.log(client.models); // Should show "Todo"
-  console.log(jayClient.models); // Should show "StudentList"
-
-    console.log(client); // Is `client` defined?
-    console.log(client.models); // Does `models` exist?
-    console.log(client.models.Todo); // Is `StudentList` in `models`?
-
-
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
- 
-  function deleteTodo(id: string) {
-    client.models.Todo.delete({ id })
-  }
-  */
 
   const [students, showStudents] = useState<Array<Schema["StudentList"]["type"]>>([]);
 
@@ -52,7 +24,6 @@ function App() {
 
     return () => sub.unsubscribe();
   }, []);
-
 
   const createStudent = async () => {
     await jayClient.models.StudentList.create({
@@ -81,7 +52,7 @@ function App() {
         {students.map((student) => (
           <li 
           onClick={() => deleteStudent(student.id)}
-          key={student.id}>{student.firstName}</li>
+          key={student.id}>{student.firstName},{student.firstName}</li>
         ))}
       </ul>
     </main>

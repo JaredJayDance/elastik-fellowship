@@ -1,6 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
-
 const schema = a.schema({
   StudentList: a
     .model({
@@ -13,6 +12,15 @@ const schema = a.schema({
       teacherName: a.string(),
 
     }).authorization(allow => [allow.owner()]),
+});
+
+export type Schema = ClientSchema<typeof schema>;
+
+export const data = defineData({
+  schema,
+  authorizationModes: {
+    defaultAuthorizationMode: "userPool",
+  },
 });
 
 /*== STEP 1 ===============================================================
@@ -35,15 +43,6 @@ export type Schema = ClientSchema<typeof schema>;
 
 */
 
-//Ensure this is imported correctly
-export type Schema = ClientSchema<typeof schema>;
-
-export const data = defineData({
-  schema,
-  authorizationModes: {
-    defaultAuthorizationMode: "userPool",
-  },
-});
 
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a
