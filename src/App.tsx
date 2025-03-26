@@ -31,21 +31,52 @@ function App() {
   const [students, showStudents] = useState<Array<jaySchema["StudentList"]["type"]>>([]);
 
   useEffect(() => {
+
+    jayClient.models.StudentList.create({
+      email: "example",
+      firstName: "example",
+      lastName: "example",
+      DOB: "01/01/2001",
+      schoolName: "example",
+      coordinatorName: "example",
+      teacherName: "example"
+    });
+
+
+    console.log(jayClient); // Is `client` defined?
+    console.log(jayClient.models); // Does `models` exist?
+    console.log(jayClient.models?.StudentList); // Is `StudentList` in `models`?
+
+    const sub = jayClient.models.StudentList.observeQuery().subscribe({
+      next: ({ items }) => {
+        showStudents([...items]);
+      },
+    });
+
+    return () => sub.unsubscribe();
+  }, []);
+
+  /**
+   * Modeled off OG query. Probably doesnt work
+   * 
+  useEffect(() => {
     jayClient.models.StudentList.observeQuery().subscribe({
       next: (data) => showStudents([...data.items]),
     });
   }, []);
+  */
 
-  //Create a student entry in the DB or will this make a different student with each create() call??
-  function createStudent() {
-    jayClient.models.StudentList.create({email: window.prompt("Add email")});
-    jayClient.models.StudentList.create({firstName: window.prompt("First Name")});
-    jayClient.models.StudentList.create({lastName: window.prompt("Last Name")});
-    jayClient.models.StudentList.create({DOB: window.prompt("Students DOB")});
-    jayClient.models.StudentList.create({schoolName: window.prompt("School")});
-    jayClient.models.StudentList.create({coordinatorName: window.prompt("Coordinator")});
-    jayClient.models.StudentList.create({teacherName: window.prompt("Teacher")});
-  }
+  const createStudent = async () => {
+    await jayClient.models.StudentList.create({
+      email: window.prompt("Add email"),
+      firstName: window.prompt("First Name"),
+      lastName: window.prompt("Last Name"),
+      DOB: window.prompt("Students DOB"),
+      schoolName: window.prompt("School"),
+      coordinatorName: window.prompt("Coordinator"),
+      teacherName: window.prompt("Teacher")
+    });
+  };
 
   function deleteStudent(id: string) {
     jayClient.models.StudentList.delete({ id })
