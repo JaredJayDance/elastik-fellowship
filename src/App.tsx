@@ -3,13 +3,12 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { Schema, jaySchema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
-//const client = generateClient<Schema>();
-const jayClient = generateClient<jaySchema>();
+const client = generateClient<Schema>();
+//const jayClient = generateClient<jaySchema>();
 
 function App() {
   const { user, signOut } = useAuthenticator();
 
-  /**
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
@@ -26,22 +25,10 @@ function App() {
     client.models.Todo.delete({ id })
   }
 
-  */
-
+  /** 
   const [students, showStudents] = useState<Array<jaySchema["StudentList"]["type"]>>([]);
 
   useEffect(() => {
-
-    jayClient.models.StudentList.create({
-      email: "example",
-      firstName: "example",
-      lastName: "example",
-      DOB: "01/01/2001",
-      schoolName: "example",
-      coordinatorName: "example",
-      teacherName: "example"
-    });
-
 
     console.log(jayClient); // Is `client` defined?
     console.log(jayClient.models); // Does `models` exist?
@@ -56,15 +43,6 @@ function App() {
     return () => sub.unsubscribe();
   }, []);
 
-  /**
-   * Modeled off OG query. Probably doesnt work
-   * 
-  useEffect(() => {
-    jayClient.models.StudentList.observeQuery().subscribe({
-      next: (data) => showStudents([...data.items]),
-    });
-  }, []);
-  */
 
   const createStudent = async () => {
     await jayClient.models.StudentList.create({
@@ -81,20 +59,20 @@ function App() {
   function deleteStudent(id: string) {
     jayClient.models.StudentList.delete({ id })
   }
+    */
 
   return (
     <main>
       <h1>{user?.signInDetails?.loginId}'s ToDos</h1>
-      
-      <button onClick={signOut}>Sign out</button>
-      <button onClick={createStudent}>+ newStudent</button>
+      <button onClick={createTodo}>+ new</button>
       <ul>
-        {students.map((student) => (
+        {todos.map((todo) => (
           <li 
-          onClick={() => deleteStudent(student.id)}
-          key={student.id}>{student.firstName}</li>
+          onClick={() => deleteTodo(todo.id)}
+          key={todo.id}>{todo.content}</li>
         ))}
       </ul>
+      <button onClick={signOut}>Sign out</button>
     </main>
   );
 }
@@ -102,12 +80,12 @@ function App() {
 export default App;
 
 /**
-<button onClick={createTodo}>+ new</button>
+<button onClick={createStudent}>+ newStudent</button>
       <ul>
-        {todos.map((todo) => (
+        {students.map((student) => (
           <li 
-          onClick={() => deleteTodo(todo.id)}
-          key={todo.id}>{todo.content}</li>
+          onClick={() => deleteStudent(student.id)}
+          key={student.id}>{student.firstName}</li>
         ))}
       </ul>
 
