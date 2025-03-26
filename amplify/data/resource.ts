@@ -1,7 +1,7 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 
-const jaySchema = a.schema({
+const schema = a.schema({
   StudentList: a
     .model({
       email: a.string(),
@@ -21,7 +21,7 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
-
+/**
 const schema = a.schema({
   Todo: a
     .model({
@@ -33,8 +33,10 @@ const schema = a.schema({
 
 export type Schema = ClientSchema<typeof schema>;
 
+*/
+
 //Ensure this is imported correctly
-export type jaySchema = ClientSchema<typeof jaySchema>;
+export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
   schema,
