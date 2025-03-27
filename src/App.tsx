@@ -46,17 +46,17 @@ function App() {
   return (
     <main>
       <h1>Hi {user?.signInDetails?.loginId}! Welcome to Student Viewer! </h1>
+        <button onClick={createStudent}>+ newStudent</button>
+        <button onClick={fetchStudents}>Fetch student data to console</button>
+        <ul>
+          {students.map((student) => (
+            <li 
+            onClick={() => deleteStudent(student.id)}
+            key={student.id}>{student.firstName},{student.lastName}</li>
+          ))}
+        </ul>
+        <button onClick={signOut}>Sign out</button>
       <MyTable />
-      <button onClick={createStudent}>+ newStudent</button>
-      <button onClick={fetchStudents}>Fetch student data to console</button>
-      <ul>
-        {students.map((student) => (
-          <li 
-          onClick={() => deleteStudent(student.id)}
-          key={student.id}>{student.firstName},{student.lastName}</li>
-        ))}
-      </ul>
-      <button onClick={signOut}>Sign out</button>
     </main>
   );
 }
