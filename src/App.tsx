@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import type { Schema } from "../amplify/data/resource"; 
 import { generateClient } from "aws-amplify/data";
+import MyTable from "./table";
 
 const jayClient = generateClient<Schema>();
 
@@ -44,11 +45,10 @@ function App() {
 
   return (
     <main>
-      <h1>{user?.signInDetails?.loginId}'s ToDos</h1>
-      
-      <button onClick={signOut}>Sign out</button>
+      <h1>Hi {user?.signInDetails?.loginId}! Welcome to Student Viewer! </h1>
+      <MyTable />
       <button onClick={createStudent}>+ newStudent</button>
-      <button onClick={fetchStudents}>Fetch</button>
+      <button onClick={fetchStudents}>Fetch student data to console</button>
       <ul>
         {students.map((student) => (
           <li 
@@ -56,6 +56,7 @@ function App() {
           key={student.id}>{student.firstName},{student.lastName}</li>
         ))}
       </ul>
+      <button onClick={signOut}>Sign out</button>
     </main>
   );
 }
