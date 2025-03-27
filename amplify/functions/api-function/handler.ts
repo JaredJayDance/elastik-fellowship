@@ -14,25 +14,39 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 };
 */
 
-const AWS = require('aws-sdk');
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-export const handler: APIGatewayProxyHandler = async (event) => {
-  const params = {
-    TableName: 'StudentList', // Replace with your table
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+export const handler = async () => {
+    try {
+      const response = await docClient.send(new ScanCommand({
+        TableName: process.env.TABLE_NAME
+      }));
+  
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*' // Enable CORS if needed
+        },
+        body: JSON.stringify({
+          success: true,
+          data: response.Items,
+          count: response.Count,
+          scannedCount: response.ScannedCount
+        })
+      };
+    } catch (error) {
+      console.error('DynamoDB error:', error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          success: false,
+          error: 'Failed to retrieve data',
+        })
+      };
+    }
   };
-
-  try {
-    const data = await dynamoDb.scan(params).promise();
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data.Items), // Return as JSON
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to fetch data' }),
-    };
-  }
-};
