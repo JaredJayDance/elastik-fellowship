@@ -13,7 +13,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   };
 };
 */
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";  
 import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
 // Initialize DynamoDB Client
