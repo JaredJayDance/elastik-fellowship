@@ -23,7 +23,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 export const handler = async () => {
     try {
       const response = await docClient.send(new ScanCommand({
-        TableName: process.env.TABLE_NAME
+        TableName: "StudentList"
       }));
   
       return {
