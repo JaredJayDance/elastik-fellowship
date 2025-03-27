@@ -1,5 +1,5 @@
 import type { APIGatewayProxyHandler } from "aws-lambda";
-
+/** 
 export const handler: APIGatewayProxyHandler = async (event) => {
   console.log("event", event);
   return {
@@ -11,4 +11,28 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     },
     body: JSON.stringify("Hello from myFunction!"),
   };
+};
+*/
+
+const AWS = require('aws-sdk');
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+export const handler: APIGatewayProxyHandler = async (event) => {
+  const params = {
+    TableName: 'StudentList', // Replace with your table
+  };
+
+  try {
+    const data = await dynamoDb.scan(params).promise();
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data.Items), // Return as JSON
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to fetch data' }),
+    };
+  }
 };

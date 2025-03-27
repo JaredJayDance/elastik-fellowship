@@ -42,7 +42,7 @@ const [colsDef, setColsDef]: any[] = useState([
   };
 
   return (
-    <div className="ag-theme-alpine" style={{ width: "1200px", height: "800px" }}>
+    <div className="ag-theme-alpine" style={{ width: "800px", height: "480px" }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={colsDef}
