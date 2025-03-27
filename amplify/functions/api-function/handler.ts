@@ -13,40 +13,43 @@ export const handler: APIGatewayProxyHandler = async (event) => {
   };
 };
 */
-
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-const client = new DynamoDBClient({});
+// Initialize DynamoDB Client
+const client = new DynamoDBClient({ region: "ap-southeast-2" }); // Adjust region
 const docClient = DynamoDBDocumentClient.from(client);
 
-export const handler = async () => {
-    try {
-      const response = await docClient.send(new ScanCommand({
-        TableName: "StudentList"
-      }));
-  
-      return {
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*' // Enable CORS if needed
-        },
-        body: JSON.stringify({
-          success: true,
-          data: response.Items,
-          count: response.Count,
-          scannedCount: response.ScannedCount
-        })
-      };
-    } catch (error) {
-      console.error('DynamoDB error:', error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({
-          success: false,
-          error: 'Failed to retrieve data',
-        })
-      };
-    }
-  };
+export const handler = async (event: any) => {
+  try {
+    // Scan entire table (for small datasets)
+    const command = new ScanCommand({
+      TableName: "StudentList"
+    });
+
+    const response = await docClient.send(command);
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*", // Enable CORS
+      },
+      body: JSON.stringify({
+        success: true,
+        data: response.Items,
+        count: response.Count,
+      }),
+    };
+  } catch (error) {
+    console.error("DynamoDB Scan Error:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        success: false,
+        error: "Failed to export DynamoDB data",
+        details: error instanceof Error ? error.message : "Unknown error",
+      }),
+    };
+  }
+};
