@@ -1,5 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-import { handler } from "../functions/api-function/handler";
+//import { handler } from "../functions/api-function/handler";
 import { myApiFunction } from "../functions/api-function/resource";
 
 const schema = a.schema({
@@ -18,7 +18,7 @@ const schema = a.schema({
   queryStudents: a
     .query()
     .returns(a.json())
-    .authorization(allow => [allow.authenticated()])
+    .authorization(allow => [allow.guest()]) //change to authenticated later
     .handler(a.handler.function(myApiFunction)),
 });
 
