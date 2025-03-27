@@ -12,6 +12,7 @@ function App() {
 
   const fetchStudents = async () => {
     const { data: students } = await jayClient.models.StudentList.list();
+    console.log(students);
   };
 
   useEffect(() => {
