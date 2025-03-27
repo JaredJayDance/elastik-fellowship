@@ -10,11 +10,11 @@ function App() {
 
   const [students, showStudents] = useState<Array<Schema["StudentList"]["type"]>>([]);
 
-  useEffect(() => {
+  const fetchStudents = async () => {
+    const { data: students } = await jayClient.models.StudentList.list();
+  };
 
-    console.log(jayClient); // Is `client` defined?
-    console.log(jayClient.models); // Does `models` exist?
-    console.log(jayClient.models.StudentList); // Is `StudentList` in `models`?
+  useEffect(() => {
 
     const sub = jayClient.models.StudentList.observeQuery().subscribe({
       next: ({ items }) => {
@@ -39,8 +39,7 @@ function App() {
 
   function deleteStudent(id: string) {
     jayClient.models.StudentList.delete({ id })
-  }
-    
+  } 
 
   return (
     <main>
@@ -48,11 +47,12 @@ function App() {
       
       <button onClick={signOut}>Sign out</button>
       <button onClick={createStudent}>+ newStudent</button>
+      <button onClick={fetchStudents}>Fetch</button>
       <ul>
         {students.map((student) => (
           <li 
           onClick={() => deleteStudent(student.id)}
-          key={student.id}>{student.firstName},{student.firstName}</li>
+          key={student.id}>{student.firstName},{student.lastName}</li>
         ))}
       </ul>
     </main>
