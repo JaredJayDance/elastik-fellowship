@@ -10,7 +10,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 // Create new GridExample component
 const MyTable = () => {
-  // Row Data: The data to be displayed.
+
 
   const fetchStudents = async () => {
     const { data: students } = await jayClient.models.StudentList.list();
@@ -20,10 +20,53 @@ const MyTable = () => {
 
   console.log(fetchStudents);
 
-  const [rowData, setRowData]: any[] = useState(fetchStudents());
+  // Row Data: The data to be displayed.
+  /*
+  const [rowData, setRowData] = useState([
+    { make: "Tesla", model: "Model Y", price: 64950, electric: true },
+    { make: "Ford", model: "F-Series", price: 33850, electric: false },
+    { make: "Toyota", model: "Corolla", price: 29600, electric: false },
+    { make: "Mercedes", model: "EQA", price: 48890, electric: true },
+    { make: "Fiat", model: "500", price: 15774, electric: false },
+    { make: "Nissan", model: "Juke", price: 20675, electric: false },
+
+  ]);
+  console.log(setRowData);
+  */
+
+  const [rowData, setRowData]: any[] = useState([
+    {
+      "email": "exampleemailB@gmail.com",
+      "firstName": "Barry",
+      "lastName": "Willis",
+      "DOB": "02/02/2002",
+      "schoolName": "Elastik Demo School",
+      "coordinatorName": "exampleCoord",
+      "teacherName": "exampleTeach",
+    },
+    {
+      "email": "exampleemail@gmail.com",
+      "firstName": "Kathy",
+      "lastName": "Berrigan",
+      "DOB": "01-01-2001",
+      "schoolName": "BPSchool",
+      "coordinatorName": "ExampleCoord",
+      "teacherName": "ExampleTeacher",
+    }
+
+  ]);
   console.log(setRowData);
 
   // Column Definitions: Defines & controls grid columns.
+  /*
+  const [colsDef, setColsDef]: any[] = useState([
+      { field: "make" },
+      { field: "model" },
+      { field: "price" },
+      { field: "electric" },
+    ]);  
+    console.log(setColsDef);
+  */
 
 const [colsDef, setColsDef]: any[] = useState([
   { field: "email" },
@@ -33,18 +76,8 @@ const [colsDef, setColsDef]: any[] = useState([
   { field: "schoolName" },
   { field: "coordinatorName" },
   { field: "teacherName" },
-  ]);  
-  console.log(setColsDef);
-
-  /**
-   * { field: "email" },
-    { field: "firstName" },
-    { field: "lastName" },
-    { field: "DOB" },
-    { field: "schoolName" },
-    { field: "coordinatorName" },
-    { field: "teacherName" },
-   */
+]);  
+console.log(setColsDef);
   
   const defaultColDef = {
     flex: 1,
