@@ -1,5 +1,6 @@
 {
     "runtime": "nodejs18.x",
     "build": "npm install && tsc",
+    "name": "myApiFunction",
     "externalDependencies": ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"]
   }
