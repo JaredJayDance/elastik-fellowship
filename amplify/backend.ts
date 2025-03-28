@@ -8,14 +8,16 @@ import {
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
 import { Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { myApiFunction } from "./functions/api-function/resource";
+// import { myApiFunction } from "./functions/api-function/resource";
+import * as myApiFunction from "./functions/api-function/resource"
+console.log("function imported",myApiFunction)
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
 
 const backend = defineBackend({
   auth,
   data,
-  myApiFunction,
+  //myApiFunction,
 });
 
 // create a new API stack
@@ -36,9 +38,9 @@ const myRestApi = new RestApi(apiStack, "RestApi", {
 });
 
 // create a new Lambda integration
-const lambdaIntegration = new LambdaIntegration(
+/*const lambdaIntegration = new LambdaIntegration(
   backend.myApiFunction.resources.lambda
-);
+);*/
 
 // create a new resource path with IAM authorization
 const itemsPath = myRestApi.root.addResource("items", {
@@ -48,15 +50,15 @@ const itemsPath = myRestApi.root.addResource("items", {
 });
 
 // add methods you would like to create to the resource path
-itemsPath.addMethod("GET", lambdaIntegration);
+/*itemsPath.addMethod("GET", lambdaIntegration);
 itemsPath.addMethod("POST", lambdaIntegration);
 itemsPath.addMethod("DELETE", lambdaIntegration);
-itemsPath.addMethod("PUT", lambdaIntegration);
+itemsPath.addMethod("PUT", lambdaIntegration);*/
 
 // add a proxy resource path to the API
 itemsPath.addProxy({
   anyMethod: true,
-  defaultIntegration: lambdaIntegration,
+  //defaultIntegration: lambdaIntegration,
 });
 
 // create a new Cognito User Pools authorizer
@@ -65,11 +67,11 @@ const cognitoAuth = new CognitoUserPoolsAuthorizer(apiStack, "CognitoAuth", {
 });
 
 // create a new resource path with Cognito authorization
-const booksPath = myRestApi.root.addResource("cognito-auth-path");
+/*const booksPath = myRestApi.root.addResource("cognito-auth-path");
 booksPath.addMethod("GET", lambdaIntegration, {
   authorizationType: AuthorizationType.COGNITO,
   authorizer: cognitoAuth,
-});
+});*/
 
 // create a new IAM policy to allow Invoke access to the API
 const apiRestPolicy = new Policy(apiStack, "RestApiPolicy", {

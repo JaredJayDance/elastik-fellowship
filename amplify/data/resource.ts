@@ -1,6 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 //import { handler } from "../functions/api-function/handler";
-//import { myApiFunction } from "../functions/api-function/resource";
+// import { myApiFunction } from "../functions/api-function/resource";
 
 import * as myApiFunction from "../functions/api-function/resource"
 console.log("function imported",myApiFunction)
