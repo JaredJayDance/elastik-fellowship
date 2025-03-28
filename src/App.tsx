@@ -12,12 +12,8 @@ function App() {
   const [students, showStudents] = useState<Array<Schema["StudentList"]["type"]>>([]);
 
   const fetchStudents = async () => {
-    const { data: students } = await jayClient.models.StudentList.list();
-    console.log(students);
-
-    const { data: students2 } = await jayClient.queries.queryStudents();
-    console.log("JSON below");
-    console.log(students2);
+    const { data: studentsFetched } = await jayClient.models.StudentList.list();
+    console.log(studentsFetched);
   };
 
   useEffect(() => {
