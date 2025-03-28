@@ -14,6 +14,10 @@ function App() {
   const fetchStudents = async () => {
     const { data: students } = await jayClient.models.StudentList.list();
     console.log(students);
+
+    const { data: students2 } = await jayClient.queries.queryStudents();
+    console.log("JSON below");
+    console.log(students2);
   };
 
   useEffect(() => {
@@ -42,6 +46,8 @@ function App() {
   function deleteStudent(id: string) {
     jayClient.models.StudentList.delete({ id })
   } 
+
+  
 
   return (
     <main>
