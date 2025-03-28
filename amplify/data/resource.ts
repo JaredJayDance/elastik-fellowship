@@ -1,9 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 //import { handler } from "../functions/api-function/handler";
-// import { myApiFunction } from "../functions/api-function/resource";
-
-import * as myApiFunction from "../functions/api-function/resource"
-console.log("function imported",myApiFunction)
+import { myApiFunction } from "../functions/api-function/resource";
 
 const schema = a.schema({
   StudentList: a
@@ -18,11 +15,11 @@ const schema = a.schema({
 
     }).authorization(allow => [allow.authenticated()]),
 
-  /*queryStudents: a
+  queryStudents: a
     .query()
     .returns(a.json())
     .authorization(allow => [allow.guest()]) //change to authenticated later
-    .handler(a.handler.function(myApiFunction)),*/
+    .handler(a.handler.function(myApiFunction)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
