@@ -44,8 +44,9 @@ const MyTable = () => {
   
   async function processStudents() {
     const studentsArray = await fetchStudents();
-    console.log(studentsArray); // Actual array available here
+    console.log("Exact studentsArray string: " + studentsArray); // Actual array available here
     students = studentsArray;
+    console.log("Exact students string: " + students);
   }
 
   processStudents();
