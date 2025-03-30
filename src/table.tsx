@@ -66,10 +66,6 @@ const MyTable = () => {
     };
 
     fetchStudents();
-    useEffect(() => {
-      const interval = setInterval(fetchStudents, 5000); // Poll every 5 seconds
-      return () => clearInterval(interval);
-    }, []);
   }, []);
 
   return (
