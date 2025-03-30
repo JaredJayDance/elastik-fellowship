@@ -34,27 +34,9 @@ const MyTable = () => {
   console.log(setRowData);
   */
 
-  const [rowData, setRowData]: any[] = useState([
-    {
-      "email": "exampleemailB@gmail.com",
-      "firstName": "Barry",
-      "lastName": "Willis",
-      "DOB": "02/02/2002",
-      "schoolName": "Elastik Demo School",
-      "coordinatorName": "exampleCoord",
-      "teacherName": "exampleTeach",
-    },
-    {
-      "email": "exampleemail@gmail.com",
-      "firstName": "Kathy",
-      "lastName": "Berrigan",
-      "DOB": "01-01-2001",
-      "schoolName": "BPSchool",
-      "coordinatorName": "ExampleCoord",
-      "teacherName": "ExampleTeacher",
-    }
 
-  ]);
+  //TODO: Have to format the fetchStudents results to match the below format
+  const [rowData, setRowData]: any[] = useState(fetchStudents());
   console.log(setRowData);
 
   // Column Definitions: Defines & controls grid columns.
@@ -69,6 +51,7 @@ const MyTable = () => {
   */
 
 const [colsDef, setColsDef]: any[] = useState([
+  { field: "id", hide: true },
   { field: "email" },
   { field: "firstName" },
   { field: "lastName" },
@@ -76,6 +59,8 @@ const [colsDef, setColsDef]: any[] = useState([
   { field: "schoolName" },
   { field: "coordinatorName" },
   { field: "teacherName" },
+  { field: "createdAt", hide: true },
+  { field: "updatedAt", hide: true }
 ]);  
 console.log(setColsDef);
   
