@@ -13,9 +13,16 @@ const MyTable = () => {
 
 
   const fetchStudents = async () => {
-    const { data: students } = await jayClient.models.StudentList.list();
-    console.log(students);
-    return students;
+    const { data: fetchedStudents } = await jayClient.models.StudentList.list();
+    console.log(fetchedStudents);
+
+    for (let i = 0, len = fetchedStudents.length; i < len; i++) {
+      console.log(i)
+      console.log(fetchedStudents[i])
+      
+    }
+
+    return fetchedStudents;
   };
 
   console.log(fetchStudents);
