@@ -36,8 +36,10 @@ const MyTable = () => {
 
     return students;
   };
-
-  const [rowData, setRowData]: any[] = useState(fetchStudents());
+  const studentArray = fetchStudents();
+  console.log("studentArray equals: ");
+  console.log(studentArray);
+  const [rowData, setRowData]: any[] = useState(studentArray);
 
   /*
   const myArray = fetchStudents();
@@ -50,8 +52,9 @@ const MyTable = () => {
     console.log(myArray[i].teacherName);
   }
   */
-    console.log("After mapping: " + fetchStudents);
-    console.log("Row data print: " + setRowData);
+    console.log("After mapping: ");
+    console.log(fetchStudents)
+    console.log(setRowData);
 
 const [colsDef, setColsDef]: any[] = useState([
   { field: "email" },
