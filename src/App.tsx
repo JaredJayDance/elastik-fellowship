@@ -43,7 +43,7 @@ function App() {
       <h1>Hi {user?.signInDetails?.loginId}! Welcome to the Student Viewer Dashboard! </h1>
         <button onClick={createStudent}>+ Click to add a student</button>
         <MyTable />
-        <div>Delete students from the database by clicking on their name below</div>
+        <button>Delete students by clicking their name below</button>
         <ul>
           {students.map((student) => (
             <li 
