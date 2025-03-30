@@ -24,7 +24,7 @@ const MyTable = () => {
       teacherName: string;
     }
 
-    const students: Student[] = [];
+    const students: Student[] = new Array(fetchedStudents.length);
 
     for (let i = 0, len = fetchedStudents.length; i < len; i++) {
       students[i].firstName = fetchedStudents[i].firstName ?? "empty";
