@@ -15,14 +15,29 @@ const MyTable = () => {
   const fetchStudents = async () => {
     const { data: fetchedStudents } = await jayClient.models.StudentList.list();
     console.log(fetchedStudents);
-
-    for (let i = 0, len = fetchedStudents.length; i < len; i++) {
-      console.log(i)
-      console.log(fetchedStudents[i])
-      
+    interface Student {
+      firstName: string;
+      lastName: string;
+      DOB: string;
+      schoolName: string;
+      coordinatorName: string;
+      teacherName: string;
     }
 
-    return fetchedStudents;
+    const students: Student[] = [];
+
+    for (let i = 0, len = fetchedStudents.length; i < len; i++) {
+      students[i].firstName = fetchedStudents[i].firstName ?? "empty";
+      students[i].lastName = fetchedStudents[i].lastName ?? "empty";
+      students[i].DOB = fetchedStudents[i].DOB ?? "empty";
+      students[i].schoolName = fetchedStudents[i].schoolName ?? "empty";
+      students[i].coordinatorName = fetchedStudents[i].coordinatorName ?? "empty";
+      students[i].teacherName = fetchedStudents[i].teacherName ?? "empty";
+    }
+
+    console.log(students)
+
+    return students;
   };
 
   console.log(fetchStudents);
