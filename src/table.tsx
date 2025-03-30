@@ -25,51 +25,21 @@ const MyTable = () => {
 
   const [rowData, setRowData] = useState<Student[]>([]);
 
-  /*
-  const myArray = fetchStudents();
-  for (let i = 0, len = myArray.length; i < len; i++) {
-    console.log(myArray[i].email);
-    console.log(myArray[i].firstName);
-    console.log(myArray[i].lastName);
-    console.log(myArray[i].schoolName);
-    console.log(myArray[i].coordinatorName);
-    console.log(myArray[i].teacherName);
-  }
-
-  {
-      "email": "exampleemailB@gmail.com",
-      "firstName": "Barry",
-      "lastName": "Willis",
-      "DOB": "02/02/2002",
-      "schoolName": "Elastik Demo School",
-      "coordinatorName": "exampleCoord",
-      "teacherName": "exampleTeach",
-    },
-    {
-      "email": "exampleemail@gmail.com",
-      "firstName": "Kathy",
-      "lastName": "Berrigan",
-      "DOB": "01-01-2001",
-      "schoolName": "BPSchool",
-      "coordinatorName": "ExampleCoord",
-      "teacherName": "ExampleTeacher",
-    }
-  */
-
-const [colsDef, setColsDef]: any[] = useState([
-  { field: "email" },
-  { field: "firstName" },
-  { field: "lastName" },
-  { field: "DOB" },
-  { field: "schoolName" },
-  { field: "coordinatorName" },
-  { field: "teacherName" },
-]);  
-console.log("ColsDef print: " + setColsDef);
-  
-  const defaultColDef = {
-    flex: 1,
-  };
+  const [colsDef, setColsDef]: any[] = useState([
+    { field: "email", filter: true },
+    { field: "firstName", filter: true },
+    { field: "lastName", filter: true },
+    { field: "DOB", filter: true },
+    { field: "schoolName", filter: true },
+    { field: "coordinatorName", filter: true },
+    { field: "teacherName", filter: true },
+  ]);  
+  console.log("ColsDef print: " + setColsDef);
+    
+    const defaultColDef = {
+      flex: 1,
+      filter: true
+    };
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -96,10 +66,14 @@ console.log("ColsDef print: " + setColsDef);
     };
 
     fetchStudents();
+    useEffect(() => {
+      const interval = setInterval(fetchStudents, 5000); // Poll every 5 seconds
+      return () => clearInterval(interval);
+    }, []);
   }, []);
 
   return (
-    <div className="ag-theme-alpine" style={{ width: "800px", height: "480px" }}>
+    <div className="ag-theme-alpine" style={{ width: "120%", height: "100%" }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={colsDef}

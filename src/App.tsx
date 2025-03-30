@@ -11,11 +11,6 @@ function App() {
 
   const [students, showStudents] = useState<Array<Schema["StudentList"]["type"]>>([]);
 
-  const fetchStudents = async () => {
-    const { data: studentsFetched } = await jayClient.models.StudentList.list();
-    console.log(studentsFetched);
-  };
-
   useEffect(() => {
 
     const sub = jayClient.models.StudentList.observeQuery().subscribe({
@@ -43,13 +38,11 @@ function App() {
     jayClient.models.StudentList.delete({ id })
   } 
 
-  
-
   return (
     <main>
-      <h1>Hi {user?.signInDetails?.loginId}! Welcome to Student Viewer! </h1>
-        <button onClick={createStudent}>+ newStudent</button>
-        <button onClick={fetchStudents}>Fetch student data to console</button>
+      <h1>Hi {user?.signInDetails?.loginId}! Welcome to the Student Viewer Dashboard! </h1>
+        <button onClick={createStudent}>+ Add a student</button>
+        <MyTable />
         <ul>
           {students.map((student) => (
             <li 
@@ -58,30 +51,8 @@ function App() {
           ))}
         </ul>
         <button onClick={signOut}>Sign out</button>
-      <MyTable />
     </main>
   );
 }
 
 export default App;
-
-/**
-<button onClick={createStudent}>+ newStudent</button>
-      <ul>
-        {students.map((student) => (
-          <li 
-          onClick={() => deleteStudent(student.id)}
-          key={student.id}>{student.firstName}</li>
-        ))}
-      </ul>
-
-
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li 
-          onClick={() => deleteTodo(todo.id)}
-          key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      */
