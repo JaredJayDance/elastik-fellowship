@@ -69,7 +69,7 @@ const MyTable = () => {
   }, []);
 
   return (
-    <div className="ag-theme-alpine" style={{ width: "800px", height: "480px" }}>
+    <div className="ag-theme-alpine" style={{ width: "100%", height: "480px" }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={colsDef}

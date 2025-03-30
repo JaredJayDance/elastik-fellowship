@@ -41,13 +41,14 @@ function App() {
   return (
     <main>
       <h1>Hi {user?.signInDetails?.loginId}! Welcome to the Student Viewer Dashboard! </h1>
-        <button onClick={createStudent}>+ Add a student</button>
+        <button onClick={createStudent}>+ Click to add a student</button>
         <MyTable />
+        <div>Delete students from the database by clicking on their name below</div>
         <ul>
           {students.map((student) => (
             <li 
             onClick={() => deleteStudent(student.id)}
-            key={student.id}>{student.firstName},{student.lastName}</li>
+            key={student.id}>{student.firstName} {student.lastName}</li>
           ))}
         </ul>
         <button onClick={signOut}>Sign out</button>
