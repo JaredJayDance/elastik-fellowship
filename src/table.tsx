@@ -24,20 +24,18 @@ const MyTable = () => {
       teacherName: string;
     }
 
-    const students: Student[] = new Array(fetchedStudents.length);
-
-    for (let i = 0, len = fetchedStudents.length; i < len; i++) {
-      students[i].firstName = fetchedStudents[i].firstName ?? "empty";
-      students[i].lastName = fetchedStudents[i].lastName ?? "empty";
-      students[i].DOB = fetchedStudents[i].DOB ?? "empty";
-      students[i].schoolName = fetchedStudents[i].schoolName ?? "empty";
-      students[i].coordinatorName = fetchedStudents[i].coordinatorName ?? "empty";
-      students[i].teacherName = fetchedStudents[i].teacherName ?? "empty";
-    }
+    const students = fetchedStudents.map(student => ({
+      firstName: student?.firstName ?? "empty",
+      lastName: student?.lastName ?? "empty",
+      DOB: student?.DOB ?? "empty",
+      schoolName: student?.schoolName ?? "empty",
+      coordinatorName: student?.coordinatorName ?? "empty",
+      teacherName: student?.teacherName ?? "empty"
+    }));
 
     console.log(students)
 
-    return students;
+    return students as Student[];
   };
 
   console.log(fetchStudents);
