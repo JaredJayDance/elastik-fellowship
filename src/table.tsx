@@ -25,7 +25,6 @@ const MyTable = () => {
 
   const fetchStudents = async () => {
     const { data: fetchedStudents } = await jayClient.models.StudentList.list();
-    console.log("Pre-mapping: " + fetchedStudents);
 
     for (let i = 0, len = fetchedStudents.length; i < len; i++) {
       students.push({
@@ -37,6 +36,7 @@ const MyTable = () => {
         coordinatorName: fetchedStudents[i].coordinatorName ?? "empty",
         teacherName: fetchedStudents[i].teacherName ?? "empty"
       });
+      console.log(students[i]);
     }
 
     return students as Student[];
@@ -44,9 +44,11 @@ const MyTable = () => {
   
   async function processStudents() {
     const studentsArray = await fetchStudents();
-    console.log("Exact studentsArray string: " + studentsArray); // Actual array available here
+    console.log("Exact studentsArray string: "); // Actual array available here
+    console.log(studentsArray);
     students = studentsArray;
-    console.log("Exact students string: " + students);
+    console.log("Exact students string: ");
+    console.log(students);
   }
 
   processStudents();
