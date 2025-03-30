@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {  useState, useEffect } from "react";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import type { Schema } from "../amplify/data/resource"; 
@@ -23,38 +23,7 @@ const MyTable = () => {
 
   var students: Student[] = [];
 
-  const fetchStudents = async () => {
-    const { data: fetchedStudents } = await jayClient.models.StudentList.list();
-
-    for (let i = 0, len = fetchedStudents.length; i < len; i++) {
-      students.push({
-        email: fetchedStudents[i].email ?? "empty",
-        firstName: fetchedStudents[i].firstName ?? "empty",
-        lastName: fetchedStudents[i].lastName ?? "empty",
-        DOB: fetchedStudents[i].DOB ?? "empty",
-        schoolName: fetchedStudents[i].schoolName ?? "empty",
-        coordinatorName: fetchedStudents[i].coordinatorName ?? "empty",
-        teacherName: fetchedStudents[i].teacherName ?? "empty"
-      });
-      console.log(students[i]);
-    }
-
-    return students as Student[];
-  };
-  
-  async function processStudents() {
-    const studentsArray = await fetchStudents();
-    console.log("Exact studentsArray string: "); // Actual array available here
-    console.log(studentsArray);
-    students = studentsArray;
-    console.log("Exact students string: ");
-    console.log(students);
-  }
-
-  processStudents();
-
-  const [rowData, setRowData]: any[] = useState(students);
-  console.log(setRowData);
+  const [rowData, setRowData] = useState<Student[]>([]);
 
   /*
   const myArray = fetchStudents();
@@ -101,6 +70,33 @@ console.log("ColsDef print: " + setColsDef);
   const defaultColDef = {
     flex: 1,
   };
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const { data: fetchedStudents } = await jayClient.models.StudentList.list();
+
+        for (let i = 0, len = fetchedStudents.length; i < len; i++) {
+          students.push({
+            email: fetchedStudents[i].email ?? "empty",
+            firstName: fetchedStudents[i].firstName ?? "empty",
+            lastName: fetchedStudents[i].lastName ?? "empty",
+            DOB: fetchedStudents[i].DOB ?? "empty",
+            schoolName: fetchedStudents[i].schoolName ?? "empty",
+            coordinatorName: fetchedStudents[i].coordinatorName ?? "empty",
+            teacherName: fetchedStudents[i].teacherName ?? "empty"
+          });
+        }
+
+        setRowData(students);
+        console.log("Students loaded:", students);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+
+    fetchStudents();
+  }, []);
 
   return (
     <div className="ag-theme-alpine" style={{ width: "800px", height: "480px" }}>
