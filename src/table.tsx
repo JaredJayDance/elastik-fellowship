@@ -11,20 +11,21 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 // Create new GridExample component
 const MyTable = () => {
 
+  interface Student {
+    email: string;
+    firstName: string;
+    lastName: string;
+    DOB: string;
+    schoolName: string;
+    coordinatorName: string;
+    teacherName: string;
+  }
+
+  var students: Student[] = [];
+
   const fetchStudents = async () => {
     const { data: fetchedStudents } = await jayClient.models.StudentList.list();
     console.log("Pre-mapping: " + fetchedStudents);
-    interface Student {
-      email: string;
-      firstName: string;
-      lastName: string;
-      DOB: string;
-      schoolName: string;
-      coordinatorName: string;
-      teacherName: string;
-    }
-
-    const students: Student[] = [];
 
     for (let i = 0, len = fetchedStudents.length; i < len; i++) {
       students.push({
@@ -40,10 +41,17 @@ const MyTable = () => {
 
     return students as Student[];
   };
-  const studentArray = fetchStudents();
-  console.log("studentArray equals: ");
-  console.log(studentArray);
-  const [rowData, setRowData]: any[] = useState(studentArray);
+  
+  async function processStudents() {
+    const studentsArray = await fetchStudents();
+    console.log(studentsArray); // Actual array available here
+    students = studentsArray;
+  }
+
+  processStudents();
+
+  const [rowData, setRowData]: any[] = useState(students);
+  console.log(setRowData);
 
   /*
   const myArray = fetchStudents();
@@ -75,9 +83,6 @@ const MyTable = () => {
       "teacherName": "ExampleTeacher",
     }
   */
-    console.log("After mapping: ");
-    console.log(fetchStudents())
-    console.log(setRowData);
 
 const [colsDef, setColsDef]: any[] = useState([
   { field: "email" },
