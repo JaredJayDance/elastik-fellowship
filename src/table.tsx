@@ -24,17 +24,21 @@ const MyTable = () => {
       teacherName: string;
     }
 
-    const students: Student[] = fetchedStudents.map(student => ({
-      email: student?.email ?? "empty",
-      firstName: student?.firstName ?? "empty",
-      lastName: student?.lastName ?? "empty",
-      DOB: student?.DOB ?? "empty",
-      schoolName: student?.schoolName ?? "empty",
-      coordinatorName: student?.coordinatorName ?? "empty",
-      teacherName: student?.teacherName ?? "empty"
-    }));
+    const students: Student[] = [];
 
-    return students;
+    for (let i = 0, len = fetchedStudents.length; i < len; i++) {
+      students.push({
+        email: fetchedStudents[i].email ?? "empty",
+        firstName: fetchedStudents[i].firstName ?? "empty",
+        lastName: fetchedStudents[i].lastName ?? "empty",
+        DOB: fetchedStudents[i].DOB ?? "empty",
+        schoolName: fetchedStudents[i].schoolName ?? "empty",
+        coordinatorName: fetchedStudents[i].coordinatorName ?? "empty",
+        teacherName: fetchedStudents[i].teacherName ?? "empty"
+      });
+    }
+
+    return students as Student[];
   };
   const studentArray = fetchStudents();
   console.log("studentArray equals: ");
@@ -51,9 +55,28 @@ const MyTable = () => {
     console.log(myArray[i].coordinatorName);
     console.log(myArray[i].teacherName);
   }
+
+  {
+      "email": "exampleemailB@gmail.com",
+      "firstName": "Barry",
+      "lastName": "Willis",
+      "DOB": "02/02/2002",
+      "schoolName": "Elastik Demo School",
+      "coordinatorName": "exampleCoord",
+      "teacherName": "exampleTeach",
+    },
+    {
+      "email": "exampleemail@gmail.com",
+      "firstName": "Kathy",
+      "lastName": "Berrigan",
+      "DOB": "01-01-2001",
+      "schoolName": "BPSchool",
+      "coordinatorName": "ExampleCoord",
+      "teacherName": "ExampleTeacher",
+    }
   */
     console.log("After mapping: ");
-    console.log(fetchStudents)
+    console.log(fetchStudents())
     console.log(setRowData);
 
 const [colsDef, setColsDef]: any[] = useState([
