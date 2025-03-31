@@ -2,6 +2,8 @@
 
 This repository provides the code needed to set up my Amplify Gen2 application for my Elastik Fellowship Project.
 
+To view the project, please use the following URL: https://main.d29s4ux576i452.amplifyapp.com/
+
 ## Overview
 
 This web application has a sign up/sign in interface which, once signed in takes you to a dashboard and allows you to view the contents of a DynamoDB database and add or delete items from the database. 
@@ -33,3 +35,7 @@ Given more time I would have liked to...
 
 - **State Management**
     I have never used React Context API before so I would have had to conduct research and decided the best way to apply it to my project.
+
+
+- **Deploying the application**
+    To deploy this application begin by making a copy of the git repository. Then log in to AWS, navigate to AWS Amplify and click "Create New App" then follow along with the process and select your newly copied repo to deploy the provided code.
